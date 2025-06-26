@@ -670,6 +670,7 @@ func (o *DiffOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 
 	if o.Prune {
 		mapper, err := f.ToRESTMapper()
+		o.tracker = newTracker()
 
 		if err != nil {
 			return err
@@ -708,7 +709,6 @@ func (o *DiffOptions) Complete(f cmdutil.Factory, cmd *cobra.Command, args []str
 				return err
 			}
 
-			o.tracker = newTracker()
 			o.pruner = newPruner(o.DynamicClient, mapper, resources, o.Selector)
 		}
 	}
